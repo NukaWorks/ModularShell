@@ -1,4 +1,8 @@
 target/
 bin/
 temp/
+.idea/
+.settings/
+.eclipse/
 *.old
+*.iml

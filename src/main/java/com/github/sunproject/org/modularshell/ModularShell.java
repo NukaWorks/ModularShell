@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-@SuppressWarnings("unused")
 public class ModularShell extends ModularModule {
 
 	public static final String moduleName = "ModularShell";
@@ -25,7 +24,7 @@ public class ModularShell extends ModularModule {
 	private static Thread shellThread;
 
 	public ModularShell(ModularEventHandler preInitTask) {
-		super(moduleName, 1);
+		super(moduleName, 1, moduleVersion);
 		this.setModuleVersion(moduleVersion);
 		this.preInitTaskEvent = preInitTask;
 		cliListener = new Scanner(System.in);
@@ -45,16 +44,16 @@ public class ModularShell extends ModularModule {
 		}
 	}
 
-	private void sendCommand(String[] cmdName) {
-		if (!cmdName[0].isEmpty()) {
-			if (ModularCommand.getCommands().get(cmdName[0]) == null) {
-				System.err.println("\nCommand " + "\"" + cmdName[0] + "\"" + " not found !");
+	private void sendCommand(String[] cmdInputs) {
+		if (!cmdInputs[0].isEmpty()) {
+			if (ModularCommand.getCommands().get(cmdInputs[0]) == null) {
+				System.err.println("\nCommand " + "\"" + cmdInputs[0] + "\"" + " not found !");
 			} else {
-				ModularCommand command = ModularCommand.getCommands().get(cmdName[0]);
-				if (cmdName.length > 1) {
-					ArrayList<String> list = new ArrayList<>(Arrays.asList(cmdName));
-					list.remove(0);
-					command.setCommandArgs(list);
+				ModularCommand command = ModularCommand.getCommands().get(cmdInputs[0]);
+				if (cmdInputs.length > 1) {
+					ArrayList<String> cmdArgs = new ArrayList<>(Arrays.asList(cmdInputs));
+					cmdArgs.remove(0);
+					command.setCommandArgs(cmdArgs);
 				}
 				command.launchCommand();
 			}

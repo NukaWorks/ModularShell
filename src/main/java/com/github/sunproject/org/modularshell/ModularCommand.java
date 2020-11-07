@@ -11,7 +11,7 @@ public class ModularCommand {
     private String commandDetails;
     private static final HashMap<String, ModularCommand> commandsMap = new HashMap<>();
     private ModularEventHandler eventHandler;
-    private ArrayList<String> commandArgs = new ArrayList<>();
+    private static ModularCmdArgs commandArgs = new ModularCmdArgs();
 
     public ModularCommand(String cmdName) {
         this.commandName = cmdName;
@@ -29,12 +29,12 @@ public class ModularCommand {
 	}
 
 
-	public void setCommandArgs(ArrayList<String> args) {
-		commandArgs = args;
+	public static void setCommandArgs(ArrayList<String> args) {
+		commandArgs.setCmdArgs(args);
 	}
 
-	public ArrayList<String> getCommandArgs() {
-		return commandArgs;
+	public static ArrayList<String> getCommandArgs() {
+		return commandArgs.getCmdArgs();
 	}
 
 	public void setCommandDetails(String details) {
