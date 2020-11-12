@@ -3,6 +3,7 @@ package com.github.sunproject.org.modularshell;
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.AnsiFormat;
 import com.diogonunes.jcolor.Attribute;
+import com.github.sunproject.org.modularframework.console.ModularCInputs;
 import com.github.sunproject.org.modularframework.events.ModularEventHandler;
 import com.github.sunproject.org.modularframework.providers.modulemanager.ModularModule;
 import com.github.sunproject.org.modularshell.builtin.ModularAboutShCmd;
@@ -14,8 +15,8 @@ import java.util.Scanner;
 public class ModularShell extends ModularModule {
 
 	public static final String moduleName = "ModularShell";
-	private static final String moduleVersion = "1.1.7";
-	private final Scanner cliListener;
+	private static final String moduleVersion = "2.0.1";
+	private Scanner cliListener;
 	private final ModularEventHandler preInitTaskEvent;
 
 	private String prompt = Ansi.colorize("~", new AnsiFormat(Attribute.RED_TEXT()))
@@ -27,7 +28,7 @@ public class ModularShell extends ModularModule {
 		super(moduleName, 1, moduleVersion);
 		this.setModuleVersion(moduleVersion);
 		this.preInitTaskEvent = preInitTask;
-		cliListener = new Scanner(System.in);
+		cliListener = ModularCInputs.getModularConsoleInputs().getScanner();
 
 		shellThread = new Thread(() -> {
 			System.out.println("\n");
@@ -37,7 +38,7 @@ public class ModularShell extends ModularModule {
 	}
 
 	private void callInterpreter(String prompt) {
-		while (true) {
+		while (this.isEnabled()) {
 			System.out.print(prompt);
 			String[] args = cliListener.nextLine().split(" ");
 			sendCommand(args);
@@ -64,7 +65,6 @@ public class ModularShell extends ModularModule {
 	@Override
 	public void onDisable() {
 		ModularCommand.unregisterAllCommands();
-		shellThread.stop();
 	}
 
 	public String getPrompt() {
