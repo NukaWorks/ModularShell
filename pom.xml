@@ -37,7 +37,7 @@
         <dependency>
             <groupId>com.github.sunproject.org</groupId>
             <artifactId>modularframework</artifactId>
-            <version>2.0.4</version>
+            <version>SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
