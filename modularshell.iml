@@ -12,8 +12,8 @@
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.github.sunproject.org:modularframework:SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: com.diogonunes:JColor:5.0.0" level="project" />
-    <orderEntry type="library" name="Maven: net.java.dev.jna:jna:5.5.0" level="project" />
-    <orderEntry type="library" name="Maven: net.java.dev.jna:jna-platform:5.5.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.diogonunes:JColor:5.0.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: net.java.dev.jna:jna:5.5.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: net.java.dev.jna:jna-platform:5.5.0" level="project" />
   </component>
 </module>

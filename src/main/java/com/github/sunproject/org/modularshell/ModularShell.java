@@ -3,10 +3,9 @@ package com.github.sunproject.org.modularshell;
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.AnsiFormat;
 import com.diogonunes.jcolor.Attribute;
-import com.github.sunproject.org.modularframework.console.ModularCInputs;
-import com.github.sunproject.org.modularframework.events.ModularEventHandler;
-import com.github.sunproject.org.modularframework.providers.modulemanager.ModularModule;
-import com.github.sunproject.org.modularshell.builtin.ModularAboutShCmd;
+import com.github.sunproject.org.modularframework.internal.console.ModularCInputs;
+import com.github.sunproject.org.modularframework.internal.events.ModularEventHandler;
+import com.github.sunproject.org.modularframework.internal.providers.modulemanager.ModularModule;
 import com.github.sunproject.org.modularshell.builtin.ModularHelpCmd;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +14,7 @@ import java.util.Scanner;
 public class ModularShell extends ModularModule {
 
 	public static final String moduleName = "ModularShell";
-	private static final String moduleVersion = "2.0.1";
+	private static final String moduleVersion = "2.1.0";
 	private Scanner cliListener;
 	private final ModularEventHandler preInitTaskEvent;
 
@@ -81,7 +80,6 @@ public class ModularShell extends ModularModule {
 
 		// Init built-in commands
 		ModularCommand.registerCommand(new ModularHelpCmd());
-		ModularCommand.registerCommand(new ModularAboutShCmd());
 
 		shellThread.start();
 	}

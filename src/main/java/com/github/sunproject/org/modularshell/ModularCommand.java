@@ -3,7 +3,7 @@ package com.github.sunproject.org.modularshell;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.github.sunproject.org.modularframework.events.ModularEventHandler;
+import com.github.sunproject.org.modularframework.internal.events.ModularEventHandler;
 
 @SuppressWarnings("unused")
 public class ModularCommand {

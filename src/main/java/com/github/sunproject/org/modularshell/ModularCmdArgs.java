@@ -1,8 +1,8 @@
 package com.github.sunproject.org.modularshell;
 
-import java.util.ArrayList;
+import com.github.sunproject.org.modularframework.internal.events.ModularEventHandler;
 
-import com.github.sunproject.org.modularframework.events.ModularEventHandler;
+import java.util.ArrayList;
 
 public class ModularCmdArgs {
 
