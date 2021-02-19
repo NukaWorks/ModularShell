@@ -3,12 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.sunproject.org</groupId>
+    <groupId>xyz.sunproject</groupId>
     <artifactId>modularshell</artifactId>
-    <version>2.1.0</version>
+    <version>3.0.0</version>
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>>The command interpreter for ModularFramework.</description>
-    <url>https://github.com/sunproject-org/modularshell</url>
+    <description>The command interpreter for ModularFramework.</description>
+    <url>https://github.com/sunproject-xyz/modularshell</url>
 
     <licenses>
         <license>
@@ -16,17 +16,6 @@
             <url>https://opensource.org/licenses/GPL-3.0</url>
         </license>
     </licenses>
-    <developers>
-        <developer>
-            <name>Leonard Chabot</name>
-            <email>sundev79.sunproject@gmail.com</email>
-        </developer>
-    </developers>
-    <scm>
-        <url>https://github.com/sunproject-org/modularshell</url>
-        <connection>scm:git:git@github.com:sunproject-org/modularshell.git</connection>
-        <developerConnection>scm:git:git@github.com:sunproject-org/modularshell.git</developerConnection>
-    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -35,9 +24,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.sunproject.org</groupId>
-            <artifactId>modularframework</artifactId>
-            <version>SNAPSHOT</version>
+            <groupId>xyz.sunproject</groupId>
+            <artifactId>ModularFramework</artifactId>
+            <version>v1.3.0-sundev79</version>
             <scope>provided</scope>
         </dependency>
 
@@ -45,7 +34,6 @@
             <groupId>com.diogonunes</groupId>
             <artifactId>JColor</artifactId>
             <version>5.0.0</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -67,6 +55,21 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <version>3.8.1</version>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -76,36 +79,6 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<source>1.8</source>
-				</configuration>
-			</plugin>
         </plugins>
     </build>
 </project>

@@ -3,10 +3,11 @@ package com.github.sunproject.org.modularshell;
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.AnsiFormat;
 import com.diogonunes.jcolor.Attribute;
-import com.github.sunproject.org.modularframework.internal.console.ModularCInputs;
-import com.github.sunproject.org.modularframework.internal.events.ModularEventHandler;
-import com.github.sunproject.org.modularframework.internal.providers.modulemanager.ModularModule;
 import com.github.sunproject.org.modularshell.builtin.ModularHelpCmd;
+import xyz.sunproject.modularframework.core.ModularModule;
+import xyz.sunproject.modularframework.core.events.ModuleStatus;
+import xyz.sunproject.modularframework.core.events.RunEvent;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -14,20 +15,19 @@ import java.util.Scanner;
 public class ModularShell extends ModularModule {
 
 	public static final String moduleName = "ModularShell";
-	private static final String moduleVersion = "2.1.0";
+	private static final String moduleVersion = "3.0.0";
 	private Scanner cliListener;
-	private final ModularEventHandler preInitTaskEvent;
+	private final RunEvent preInitTaskEvent;
 
 	private String prompt = Ansi.colorize("~", new AnsiFormat(Attribute.RED_TEXT()))
 			+ Ansi.colorize(">", new AnsiFormat(Attribute.BOLD(), Attribute.ITALIC())) + " ";
 
 	private static Thread shellThread;
 
-	public ModularShell(ModularEventHandler preInitTask) {
-		super(moduleName, 1, moduleVersion);
-		this.setModuleVersion(moduleVersion);
+	public ModularShell(RunEvent preInitTask) throws Exception {
+		super(moduleName, "9da15b11", "Sundev79", moduleVersion);
 		this.preInitTaskEvent = preInitTask;
-		cliListener = ModularCInputs.getModularConsoleInputs().getScanner();
+		cliListener = new Scanner(System.in);
 
 		shellThread = new Thread(() -> {
 			System.out.println("\n");
@@ -37,10 +37,15 @@ public class ModularShell extends ModularModule {
 	}
 
 	private void callInterpreter(String prompt) {
-		while (this.isEnabled()) {
+		while (true) {
 			System.out.print(prompt);
 			String[] args = cliListener.nextLine().split(" ");
 			sendCommand(args);
+
+			if (getModuleState() == ModuleStatus.STOPPING) {
+				onDisable();
+				break;
+			}
 		}
 	}
 
@@ -61,8 +66,7 @@ public class ModularShell extends ModularModule {
 	}
 
 
-	@Override
-	public void onDisable() {
+	private void onDisable() {
 		ModularCommand.unregisterAllCommands();
 	}
 
@@ -75,12 +79,13 @@ public class ModularShell extends ModularModule {
 	}
 
 	@Override
-	public void onEnable() {
-		if (preInitTaskEvent != null) preInitTaskEvent.onEvent();
+	public void runEvent() {
+		if (preInitTaskEvent != null) preInitTaskEvent.runEvent();
 
 		// Init built-in commands
 		ModularCommand.registerCommand(new ModularHelpCmd());
 
 		shellThread.start();
+
 	}
 }

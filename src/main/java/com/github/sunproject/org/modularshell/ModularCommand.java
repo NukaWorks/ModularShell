@@ -3,14 +3,14 @@ package com.github.sunproject.org.modularshell;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.github.sunproject.org.modularframework.internal.events.ModularEventHandler;
+import xyz.sunproject.modularframework.core.events.RunEvent;
 
 @SuppressWarnings("unused")
 public class ModularCommand {
     private String commandName;
     private String commandDetails;
     private static final HashMap<String, ModularCommand> commandsMap = new HashMap<>();
-    private ModularEventHandler eventHandler;
+    private RunEvent eventHandler;
     private static ModularCmdArgs commandArgs = new ModularCmdArgs();
 
     public ModularCommand(String cmdName) {
@@ -19,7 +19,7 @@ public class ModularCommand {
 
 
     public void launchCommand() {
-        eventHandler.onEvent();
+        eventHandler.runEvent();
         if (!getCommandArgs().isEmpty()) getCommandArgs().clear(); // For Resolve a bug with cmd args, force reset args
     }
 
@@ -59,11 +59,11 @@ public class ModularCommand {
 		return commandsMap;
 	}
 
-	public ModularEventHandler getEventHandler() {
+	public RunEvent getEventHandler() {
 		return eventHandler;
 	}
 
-	public void setEventHandler(ModularEventHandler eventHandler) {
+	public void setEventHandler(RunEvent eventHandler) {
 		this.eventHandler = eventHandler;
     }
 

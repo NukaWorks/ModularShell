@@ -1,20 +1,20 @@
 package com.github.sunproject.org.modularshell;
 
-import com.github.sunproject.org.modularframework.internal.events.ModularEventHandler;
+import xyz.sunproject.modularframework.core.events.RunEvent;
 
 import java.util.ArrayList;
 
 public class ModularCmdArgs {
 
-	private ModularEventHandler eventHandler;
+	private RunEvent eventHandler;
 	private static ArrayList<String> cmdArgs = new ArrayList<>();
 
 	public ModularCmdArgs() {}
 	
-	public ModularCmdArgs(String argName, ModularEventHandler event) {
+	public ModularCmdArgs(String argName, RunEvent event) {
 		this.eventHandler = event;
 		
-		if (getCmdArgs().contains(argName)) event.onEvent();
+		if (getCmdArgs().contains(argName)) event.runEvent();
 	}
 
 
