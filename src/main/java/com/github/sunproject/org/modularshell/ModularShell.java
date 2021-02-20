@@ -6,7 +6,6 @@ import com.diogonunes.jcolor.Attribute;
 import com.github.sunproject.org.modularshell.builtin.ModularHelpCmd;
 import xyz.sunproject.modularframework.core.ModularModule;
 import xyz.sunproject.modularframework.core.events.ModuleStatus;
-import xyz.sunproject.modularframework.core.events.RunEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,16 +16,14 @@ public class ModularShell extends ModularModule {
 	public static final String moduleName = "ModularShell";
 	private static final String moduleVersion = "3.0.0";
 	private Scanner cliListener;
-	private final RunEvent preInitTaskEvent;
 
 	private String prompt = Ansi.colorize("~", new AnsiFormat(Attribute.RED_TEXT()))
 			+ Ansi.colorize(">", new AnsiFormat(Attribute.BOLD(), Attribute.ITALIC())) + " ";
 
 	private static Thread shellThread;
 
-	public ModularShell(RunEvent preInitTask) throws Exception {
+	public ModularShell() throws Exception {
 		super(moduleName, "9da15b11", "Sundev79", moduleVersion);
-		this.preInitTaskEvent = preInitTask;
 		cliListener = new Scanner(System.in);
 
 		shellThread = new Thread(() -> {
@@ -80,12 +77,8 @@ public class ModularShell extends ModularModule {
 
 	@Override
 	public void runEvent() {
-		if (preInitTaskEvent != null) preInitTaskEvent.runEvent();
-
 		// Init built-in commands
 		ModularCommand.registerCommand(new ModularHelpCmd());
-
 		shellThread.start();
-
 	}
 }
